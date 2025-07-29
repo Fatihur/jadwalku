@@ -105,7 +105,7 @@
                         <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight">
                             <span class="block">Selamat Datang di</span>
                             <span class="block bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
-                                Portal Siswa
+                                Portal JadwalKu
                             </span>
                         </h1>
                         <p class="mt-6 text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
