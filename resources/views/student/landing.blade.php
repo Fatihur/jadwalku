@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-white/80 text-sm font-medium">Portal Siswa</span>
+                    <span class="text-white/80 text-sm font-medium">Portal Manajemen Siswa</span>
                     <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                 </div>
             </div>
