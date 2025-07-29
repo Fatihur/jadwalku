@@ -139,7 +139,9 @@ class MateriResource extends Resource
                 Forms\Components\Section::make('Target Pembelajaran')
                     ->schema([
                         Forms\Components\Select::make('mata_pelajaran_id')
-                            ->relationship('mataPelajaran', 'nama_mata_pelajaran')
+                            ->relationship('mataPelajaran', 'nama_mata_pelajaran', function ($query) {
+                                return $query->where('is_active', true);
+                            })
                             ->required()
                             ->searchable()
                             ->preload()
@@ -147,7 +149,9 @@ class MateriResource extends Resource
                             ->helperText('Pilih mata pelajaran untuk materi ini'),
 
                         Forms\Components\Select::make('kelas_id')
-                            ->relationship('kelas', 'nama_kelas')
+                            ->relationship('kelas', 'nama_kelas', function ($query) {
+                                return $query->where('is_active', true);
+                            })
                             ->searchable()
                             ->preload()
                             ->label('Kelas Target')
@@ -218,13 +222,16 @@ class MateriResource extends Resource
                     ->label('Kelas')
                     ->placeholder('Semua Kelas'),
 
-                Tables\Columns\BadgeColumn::make('tipe_materi')
-                    ->colors([
-                        'primary' => 'dokumen',
-                        'success' => 'video',
-                        'warning' => 'presentasi',
-                        'secondary' => 'lainnya',
-                    ])
+                Tables\Columns\TextColumn::make('tipe_materi')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'dokumen' => 'primary',
+                        'video' => 'success',
+                        'presentasi' => 'warning',
+                        'lainnya' => 'secondary',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->label('Tipe'),
 
                 Tables\Columns\IconColumn::make('is_published')

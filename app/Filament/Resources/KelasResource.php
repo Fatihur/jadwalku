@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\KelasResource\Pages;
 use App\Models\Kelas;
-use App\Models\Guru;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -105,8 +104,8 @@ class KelasResource extends Resource
                         Forms\Components\TextInput::make('kapasitas_maksimal')
                             ->numeric()
                             ->default(30)
-                            ->min(1)
-                            ->max(50)
+                            ->minValue(1)
+                            ->maxValue(50)
                             ->required()
                             ->label('Kapasitas Maksimal'),
                         
@@ -132,12 +131,15 @@ class KelasResource extends Resource
                     ->sortable()
                     ->label('Nama Kelas'),
                 
-                Tables\Columns\BadgeColumn::make('tingkat')
-                    ->colors([
-                        'primary' => '10',
-                        'success' => '11',
-                        'warning' => '12',
-                    ])
+                Tables\Columns\TextColumn::make('tingkat')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        '10' => 'primary',
+                        '11' => 'success',
+                        '12' => 'warning',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => "Kelas {$state}")
                     ->label('Tingkat'),
                 
                 Tables\Columns\TextColumn::make('jurusan')
